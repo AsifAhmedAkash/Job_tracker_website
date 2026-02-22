@@ -1,5 +1,6 @@
 const jobs = [
     {
+        id: 1,
         company: "Mobile First Corp",
         title: "React Native Developer",
         location: "Remote",
@@ -10,6 +11,7 @@ const jobs = [
         status: "NOT APPLIED"
     },
     {
+        id: 2,
         company: "WebFlow Agency",
         title: "Web Designer & Developer",
         location: "Los Angeles, CA",
@@ -20,6 +22,7 @@ const jobs = [
         status: "NOT APPLIED"
     },
     {
+        id: 3,
         company: "DataViz Solutions",
         title: "Data Visualization Specialist",
         location: "Boston, MA",
@@ -30,6 +33,7 @@ const jobs = [
         status: "NOT APPLIED"
     },
     {
+        id: 4,
         company: "CloudFirst Inc",
         title: "Backend Developer",
         location: "Seattle, WA",
@@ -40,6 +44,7 @@ const jobs = [
         status: "NOT APPLIED"
     },
     {
+        id: 5,
         company: "Innovation Labs",
         title: "UI/UX Engineer",
         location: "Austin, TX",
@@ -50,6 +55,7 @@ const jobs = [
         status: "NOT APPLIED"
     },
     {
+        id: 6,
         company: "MegaCorp Solutions",
         title: "JavaScript Developer",
         location: "New York, NY",
@@ -60,6 +66,7 @@ const jobs = [
         status: "NOT APPLIED"
     },
     {
+        id: 7,
         company: "StartupXYZ",
         title: "Full Stack Engineer",
         location: "Remote",
@@ -70,6 +77,7 @@ const jobs = [
         status: "NOT APPLIED"
     },
     {
+        id: 8,
         company: "TechCorp Industries",
         title: "Senior Frontend Developer",
         location: "San Francisco, CA",

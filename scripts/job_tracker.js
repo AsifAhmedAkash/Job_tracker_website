@@ -4,10 +4,23 @@ document.getElementById("total-job-card-value").innerText = jobs.length;
 
 // Loop through the jobs array and create a card for each job
 
+document.getElementById("filter-all").addEventListener("click", function () {
+    renderJobs("ALL");
+});
+
+document.getElementById("filter-interview").addEventListener("click", function () {
+    renderJobs("INTERVIEW");
+});
+
+document.getElementById("filter-rejected").addEventListener("click", function () {
+    renderJobs("REJECTED");
+});
+
 for (let i = 0; i < jobs.length; i++) {
     const job = jobs[i];
 
     const card = document.createElement("div");
+    card.dataset.id = job.id;
     card.className = "relative card-body shadow-sm mb-2 bg-base-100";
 
     card.innerHTML = `
@@ -46,8 +59,6 @@ for (let i = 0; i < jobs.length; i++) {
     jobsContainer.appendChild(card);
 }
 
-// Add event listener for delete buttons
-
 jobsContainer.addEventListener("click", function (event) {
     if (event.target.closest(".delete-btn")) {
         const cardToDelete = event.target.closest(".card-body");
@@ -59,16 +70,21 @@ jobsContainer.addEventListener("click", function (event) {
     }
 });
 
-//add event listeners for interview and rejected buttons
+
 jobsContainer.addEventListener("click", function (event) {
     const card = event.target.closest(".card-body");
     if (!card) return;
 
+    const jobId = Number(card.dataset.id);
+    const job = jobs.find(j => j.id === jobId);
+
     const statusBadge = card.querySelector(".status-badge");
 
     if (event.target.closest(".btn-success")) {
-        statusBadge.innerText = "INTERVIEW";
+        job.status = "INTERVIEW";
 
+        statusBadge.innerText = job.status;
+        renderJobs();
         statusBadge.classList.remove(
             "bg-[#EEF4FF]",
             "text-gray-700",
@@ -80,7 +96,9 @@ jobsContainer.addEventListener("click", function (event) {
     }
 
     if (event.target.closest(".btn-error")) {
-        statusBadge.innerText = "REJECTED";
+        job.status = "REJECTED";
+        renderJobs();
+        statusBadge.innerText = job.status;
 
         statusBadge.classList.remove(
             "bg-[#EEF4FF]",
@@ -91,4 +109,57 @@ jobsContainer.addEventListener("click", function (event) {
 
         statusBadge.classList.add("bg-red-100", "text-red-700");
     }
+
+    console.log(jobs);
+
+
 });
+
+function renderJobs(filter = "ALL") {
+    jobsContainer.innerHTML = "";
+
+    let filteredJobs = jobs;
+
+    if (filter === "INTERVIEW") {
+        filteredJobs = jobs.filter(job => job.status === "INTERVIEW");
+    }
+
+    if (filter === "REJECTED") {
+        filteredJobs = jobs.filter(job => job.status === "REJECTED");
+    }
+
+    for (let i = 0; i < filteredJobs.length; i++) {
+        const job = filteredJobs[i];
+
+        const card = document.createElement("div");
+        card.className = "relative card-body shadow-sm mb-2 bg-base-100";
+        card.dataset.id = job.id;
+
+        card.innerHTML = `
+      <h2 class="card-title">${job.company}</h2>
+      <p class="text-sm font-semibold">${job.title}</p>
+      <p class="text-sm text-gray-500">
+        ${job.location} • ${job.type} • ${job.salary}
+      </p>
+
+      <div>
+        <div class="status-badge bg-[#EEF4FF] rounded-md py-[8px] px-[12px] mt-2 inline-block text-xs font-semibold text-gray-700">
+          ${job.status}
+        </div>
+      </div>
+
+      <p class="mt-2">${job.description}</p>
+
+      <div class="card-actions mt-4">
+        <button class="btn btn-outline btn-success hover:btn-success">
+          Interview
+        </button>
+        <button class="btn btn-outline btn-error hover:btn-error">
+          Rejected
+        </button>
+      </div>
+    `;
+
+        jobsContainer.appendChild(card);
+    }
+}
