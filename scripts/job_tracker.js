@@ -3,15 +3,19 @@ const jobsContainer = document.getElementById("jobs-container");
 document.getElementById("total-job-card-value").innerText = jobs.length;
 
 // Loop through the jobs array and create a card for each job
-
+let currentFilter = "ALL";
 document.getElementById("filter-all").addEventListener("click", function () {
     renderJobs("ALL");
+    currentFilter = "ALL";
+
 });
 document.getElementById("filter-interview").addEventListener("click", function () {
     renderJobs("INTERVIEW");
+    currentFilter = "INTERVIEW";
 });
 document.getElementById("filter-rejected").addEventListener("click", function () {
     renderJobs("REJECTED");
+    currentFilter = "REJECTED";
 });
 
 for (let i = 0; i < jobs.length; i++) {
@@ -88,7 +92,8 @@ jobsContainer.addEventListener("click", function (event) {
         job.status = "INTERVIEW";
 
         statusBadge.innerText = job.status;
-        renderJobs("REJECTED");
+        console.log(currentFilter);
+        renderJobs(currentFilter);
         statusBadge.classList.remove(
             "bg-[#EEF4FF]", "text-gray-700", "bg-red-100", "text-red-700"
         );
@@ -98,7 +103,8 @@ jobsContainer.addEventListener("click", function (event) {
 
     if (event.target.closest(".btn-error")) {
         job.status = "REJECTED";
-        renderJobs("INTERVIEW");
+        console.log(currentFilter);
+        renderJobs(currentFilter);
         statusBadge.innerText = job.status;
         statusBadge.classList.remove(
             "bg-[#EEF4FF]", "text-gray-700", "bg-green-100", "text-green-700"
@@ -131,6 +137,14 @@ function renderJobs(filter = "ALL") {
         card.dataset.id = job.id;
 
         card.innerHTML = `
+        <!-- Delete Button -->
+  <button 
+    class="absolute top-4 right-4 border border-gray-300 rounded-md p-2 
+           text-gray-500 hover:bg-red-500 hover:text-white 
+           hover:border-red-500 transition duration-200 delete-btn">
+    <i class="fa-regular fa-trash-can"></i>
+  </button>
+  
       <h2 class="card-title">${job.company}</h2>
       <p class="text-sm font-semibold">${job.title}</p>
       <p class="text-sm text-gray-500">
