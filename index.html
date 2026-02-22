@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job tracker website</title>
+
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Outfit:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <!-- icons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- daisy -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="mx-auto">
+    <!-- navbar section  -->
+    <header class="sticky top-0 z-10">
+        <section class="w-11/12 mx-auto py-3 items-center">
+
+
+            <div class="navbar">
+                <div class="flex-1">
+                    <div class="text-xl font-bold">Job Application Tracker</div>
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+                <div class="card bg-base-100 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title">Total</h2>
+                        <p class="text-[24px] font-bold" id="total-job-card-value">8</p>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title">Interview</h2>
+                        <p class="text-[24px] font-bold" id="interview-job-card-value">0</p>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title">Rejected</h2>
+                        <p class="text-[24px] font-bold" id="rejected-job-card-value">0</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </header>
+
+    <section id="filter-btn" class="w-11/12 mx-auto py-3 items-center flex gap-3">
+        <div class="navbar px-4">
+            <!-- Left side -->
+            <div class="flex-1">
+                <h1 class="text-xl font-bold">Available Jobs</h1>
+                <div class="mt-2 flex gap-2">
+                    <button class="btn btn-sm shadow-sm">All</button>
+                    <button class="btn btn-sm shadow-sm">Interview</button>
+                    <button class="btn btn-sm shadow-sm">Rejected</button>
+                </div>
+            </div>
+
+            <!-- Right side -->
+            <div class="flex-none">
+                <p class="text-sm font-medium">8 jobs</p>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="available-jobs"></section>
+
+
+    <script src="scripts/job_tracker.js"></script>
+</body>
+
+</html>
