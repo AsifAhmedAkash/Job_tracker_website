@@ -1,7 +1,8 @@
 const jobsContainer = document.getElementById("jobs-container");
 
-// update total jobs count
 document.getElementById("total-job-card-value").innerText = jobs.length;
+
+// Loop through the jobs array and create a card for each job
 
 for (let i = 0; i < jobs.length; i++) {
     const job = jobs[i];
@@ -25,10 +26,10 @@ for (let i = 0; i < jobs.length; i++) {
   </p>
 
   <div>
-    <div class="bg-[#EEF4FF] rounded-md py-[8px] px-[12px] mt-2 inline-block text-xs font-semibold text-gray-700">
-      ${job.status}
-    </div>
+  <div class="status-badge bg-[#EEF4FF] rounded-md py-[8px] px-[12px] mt-2 inline-block text-xs font-semibold text-gray-700">
+    ${job.status}
   </div>
+</div>
 
   <p class="mt-2">${job.description}</p>
 
@@ -44,3 +45,50 @@ for (let i = 0; i < jobs.length; i++) {
 
     jobsContainer.appendChild(card);
 }
+
+// Add event listener for delete buttons
+
+jobsContainer.addEventListener("click", function (event) {
+    if (event.target.closest(".delete-btn")) {
+        const cardToDelete = event.target.closest(".card-body");
+        cardToDelete.remove();
+        const totalJobCount = document.getElementById("total-job-card-value");
+        totalJobCount.innerText = parseInt(totalJobCount.innerText) - 1;
+        jobs.splice(jobs.indexOf(job), 1);
+
+    }
+});
+
+//add event listeners for interview and rejected buttons
+jobsContainer.addEventListener("click", function (event) {
+    const card = event.target.closest(".card-body");
+    if (!card) return;
+
+    const statusBadge = card.querySelector(".status-badge");
+
+    if (event.target.closest(".btn-success")) {
+        statusBadge.innerText = "INTERVIEW";
+
+        statusBadge.classList.remove(
+            "bg-[#EEF4FF]",
+            "text-gray-700",
+            "bg-red-100",
+            "text-red-700"
+        );
+
+        statusBadge.classList.add("bg-green-100", "text-green-700");
+    }
+
+    if (event.target.closest(".btn-error")) {
+        statusBadge.innerText = "REJECTED";
+
+        statusBadge.classList.remove(
+            "bg-[#EEF4FF]",
+            "text-gray-700",
+            "bg-green-100",
+            "text-green-700"
+        );
+
+        statusBadge.classList.add("bg-red-100", "text-red-700");
+    }
+});
