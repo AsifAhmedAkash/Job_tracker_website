@@ -7,11 +7,9 @@ document.getElementById("total-job-card-value").innerText = jobs.length;
 document.getElementById("filter-all").addEventListener("click", function () {
     renderJobs("ALL");
 });
-
 document.getElementById("filter-interview").addEventListener("click", function () {
     renderJobs("INTERVIEW");
 });
-
 document.getElementById("filter-rejected").addEventListener("click", function () {
     renderJobs("REJECTED");
 });
@@ -22,6 +20,8 @@ for (let i = 0; i < jobs.length; i++) {
     const card = document.createElement("div");
     card.dataset.id = job.id;
     card.className = "relative card-body shadow-sm mb-2 bg-base-100";
+
+
 
     card.innerHTML = `
   <!-- Delete Button -->
@@ -56,6 +56,7 @@ for (let i = 0; i < jobs.length; i++) {
   </div>
 `;
 
+    // console.log(job.status);
     jobsContainer.appendChild(card);
 }
 
@@ -77,19 +78,19 @@ jobsContainer.addEventListener("click", function (event) {
 
     const jobId = Number(card.dataset.id);
     const job = jobs.find(j => j.id === jobId);
-
     const statusBadge = card.querySelector(".status-badge");
 
+    // console.log(job);
+    // console.log(statusBadge);
+
     if (event.target.closest(".btn-success")) {
+
         job.status = "INTERVIEW";
 
         statusBadge.innerText = job.status;
-        renderJobs();
+        renderJobs("REJECTED");
         statusBadge.classList.remove(
-            "bg-[#EEF4FF]",
-            "text-gray-700",
-            "bg-red-100",
-            "text-red-700"
+            "bg-[#EEF4FF]", "text-gray-700", "bg-red-100", "text-red-700"
         );
 
         statusBadge.classList.add("bg-green-100", "text-green-700");
@@ -97,27 +98,22 @@ jobsContainer.addEventListener("click", function (event) {
 
     if (event.target.closest(".btn-error")) {
         job.status = "REJECTED";
-        renderJobs();
+        renderJobs("INTERVIEW");
         statusBadge.innerText = job.status;
-
         statusBadge.classList.remove(
-            "bg-[#EEF4FF]",
-            "text-gray-700",
-            "bg-green-100",
-            "text-green-700"
+            "bg-[#EEF4FF]", "text-gray-700", "bg-green-100", "text-green-700"
         );
 
         statusBadge.classList.add("bg-red-100", "text-red-700");
     }
 
-    console.log(jobs);
+    // console.log(jobs);
 
 
 });
 
 function renderJobs(filter = "ALL") {
     jobsContainer.innerHTML = "";
-
     let filteredJobs = jobs;
 
     if (filter === "INTERVIEW") {
@@ -127,7 +123,6 @@ function renderJobs(filter = "ALL") {
     if (filter === "REJECTED") {
         filteredJobs = jobs.filter(job => job.status === "REJECTED");
     }
-
     for (let i = 0; i < filteredJobs.length; i++) {
         const job = filteredJobs[i];
 
@@ -159,6 +154,8 @@ function renderJobs(filter = "ALL") {
         </button>
       </div>
     `;
+
+        // console.log(job.status);
 
         jobsContainer.appendChild(card);
     }
