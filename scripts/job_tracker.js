@@ -18,51 +18,51 @@ document.getElementById("filter-rejected").addEventListener("click", function ()
   currentFilter = "REJECTED";
 });
 
-// for (let i = 0; i < jobs.length; i++) {
-//   const job = jobs[i];
+for (let i = 0; i < jobs.length; i++) {
+  const job = jobs[i];
 
-//   const card = document.createElement("div");
-//   card.dataset.id = job.id;
-//   card.className = "relative card-body shadow-sm mb-2 bg-base-100";
+  const card = document.createElement("div");
+  card.dataset.id = job.id;
+  card.className = "relative card-body shadow-sm mb-2 bg-base-100";
 
 
 
-//   card.innerHTML = `
-//   <!-- Delete Button -->
-//   <button 
-//     class="absolute top-4 right-4 border border-gray-300 rounded-md p-2 
-//            text-gray-500 hover:bg-red-500 hover:text-white 
-//            hover:border-red-500 transition duration-200 delete-btn">
-//     <i class="fa-regular fa-trash-can"></i>
-//   </button>
+  card.innerHTML = `
+  <!-- Delete Button -->
+  <button 
+    class="absolute top-4 right-4 border border-gray-300 rounded-md p-2 
+           text-gray-500 hover:bg-red-500 hover:text-white 
+           hover:border-red-500 transition duration-200 delete-btn">
+    <i class="fa-regular fa-trash-can"></i>
+  </button>
 
-//   <h2 class="card-title">${job.company}</h2>
-//   <p class="text-sm font-semibold">${job.title}</p>
-//   <p class="text-sm text-gray-500">
-//     ${job.location} • ${job.type} • ${job.salary}
-//   </p>
+  <h2 class="card-title">${job.company}</h2>
+  <p class="text-sm font-semibold">${job.title}</p>
+  <p class="text-sm text-gray-500">
+    ${job.location} • ${job.type} • ${job.salary}
+  </p>
 
-//   <div>
-//   <div class="status-badge bg-[#EEF4FF] rounded-md py-[8px] px-[12px] mt-2 inline-block text-xs font-semibold text-gray-700">
-//     ${job.status}
-//   </div>
-// </div>
+  <div>
+  <div class="status-badge bg-[#EEF4FF] rounded-md py-[8px] px-[12px] mt-2 inline-block text-xs font-semibold text-gray-700">
+    ${job.status}
+  </div>
+</div>
 
-//   <p class="mt-2">${job.description}</p>
+  <p class="mt-2">${job.description}</p>
 
-//   <div class="card-actions mt-4">
-//     <button class="btn btn-outline btn-success hover:btn-success">
-//       Interview
-//     </button>
-//     <button class="btn btn-outline btn-error hover:btn-error">
-//       Rejected
-//     </button>
-//   </div>
-// `;
+  <div class="card-actions mt-4">
+    <button class="btn btn-outline btn-success hover:btn-success">
+      Interview
+    </button>
+    <button class="btn btn-outline btn-error hover:btn-error">
+      Rejected
+    </button>
+  </div>
+`;
 
-//   // console.log(job.status);
-//   jobsContainer.appendChild(card);
-// }
+  // console.log(job.status);
+  jobsContainer.appendChild(card);
+}
 
 jobsContainer.addEventListener("click", function (event) {
   if (event.target.closest(".delete-btn")) {
@@ -146,8 +146,10 @@ function renderJobs(filter = "ALL") {
 
   if (filteredJobs.length === 0) {
     jobsContainer.innerHTML = `
+    <img src="jobs.png" alt="job icon" class="w-24 h-24 mx-auto mb-4">
+      <h1 class="text-2xl font-bold text-gray-600 text-center py-1">No jobs availabled</h1>
       <div class="text-center text-gray-400 py-6">
-        No jobs found.
+        Check back soon for new job opportunities
       </div>
     `;
     return;
@@ -159,6 +161,18 @@ function renderJobs(filter = "ALL") {
     const card = document.createElement("div");
     card.className = "relative card-body shadow-sm mb-2 bg-base-100";
     card.dataset.id = job.id;
+
+    let badgeClasses = "";
+
+    if (job.status === "INTERVIEW") {
+      badgeClasses = "bg-green-100 text-green-700";
+    }
+    else if (job.status === "REJECTED") {
+      badgeClasses = "bg-red-100 text-red-700";
+    }
+    else {
+      badgeClasses = "bg-gray-100 text-gray-700";
+    }
 
     card.innerHTML = `
       <button 
@@ -175,10 +189,10 @@ class="absolute top-4 right-4 border border-gray-300 rounded-md p-2
       </p>
 
       <div>
-        <div class="status-badge bg-[#EEF4FF] rounded-md py-[8px] px-[12px] mt-2 inline-block text-xs font-semibold text-gray-700">
-          ${job.status}
-        </div>
-      </div>
+  <div class="status-badge ${badgeClasses} rounded-md py-[8px] px-[12px] mt-2 inline-block text-xs font-semibold">
+    ${job.status}
+  </div>
+</div>
 
       <p class="mt-2">${job.description}</p>
 
