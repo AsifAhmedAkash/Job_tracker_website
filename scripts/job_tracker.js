@@ -126,8 +126,9 @@ jobsContainer.addEventListener("click", function (event) {
 });
 
 function renderJobs(filter = "ALL") {
-  jobsContainer.innerHTML = "";
 
+  jobsContainer.innerHTML = "";
+  updateSummaryCards();
   let filteredJobs = jobs;
 
   if (filter === "INTERVIEW") {
@@ -189,4 +190,19 @@ class="absolute top-4 right-4 border border-gray-300 rounded-md p-2
 
     jobsContainer.appendChild(card);
   }
+}
+
+
+function updateSummaryCards() {
+  const totalElement = document.getElementById("total-job-card-value");
+  const interviewElement = document.getElementById("interview-job-card-value");
+  const rejectedElement = document.getElementById("rejected-job-card-value");
+
+  const total = jobs.length;
+  const interviewCount = jobs.filter(job => job.status === "INTERVIEW").length;
+  const rejectedCount = jobs.filter(job => job.status === "REJECTED").length;
+
+  totalElement.innerText = total;
+  interviewElement.innerText = interviewCount;
+  rejectedElement.innerText = rejectedCount;
 }
